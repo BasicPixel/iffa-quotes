@@ -25,6 +25,7 @@ def quote_list(request):
     serializer = serializers.QuoteSerializer(quotes, many=True)
     return Response(serializer.data)
 
+@api_view(['GET'])
 def pending_quotes(request):
     quotes = Quote.objects.filter(pending=True)
     serializer = serializers.QuoteSerializer(quotes, many=True)
