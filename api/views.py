@@ -8,8 +8,25 @@ import random
 
 # Create your views here.
 @api_view(['GET'])
+def available_routes(request):
+    return Response({
+        "":"Return available API routes",
+        "/list":"Return all non-pending quotes",
+        "/pending":"Return all pending quotes",
+        "/[id]":"Return a single quote with the specified id",
+        "/random":"Return a random quote from the database",
+        "/add-quote":"Add a quote to the database (only accepts POST and requires admin)",
+        "/delete/[id]":"Delete a quote from the database (requires admin)",
+    })
+
+@api_view(['GET'])
 def quote_list(request):
     quotes = Quote.objects.filter(pending=False)
+    serializer = serializers.QuoteSerializer(quotes, many=True)
+    return Response(serializer.data)
+
+def pending_quotes(request):
+    quotes = Quote.objects.filter(pending=True)
     serializer = serializers.QuoteSerializer(quotes, many=True)
     return Response(serializer.data)
 
