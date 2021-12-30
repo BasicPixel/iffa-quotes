@@ -8,7 +8,7 @@ import random
 
 # Create your views here.
 @api_view(['GET'])
-def available_routes(request):
+def home(request):
     return Response({
         "":"Return available API routes",
         "/list":"Return all non-pending quotes",
