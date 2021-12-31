@@ -52,7 +52,10 @@ def random_quote(request):
 @api_view(['POST'])
 @permission_classes((AllowAny,))
 def add_quote(request):
-    serializer = serializers.QuoteSerializer(data=request.data)
+    if request.user.is_superuser:
+        serializer = serializers.QuoteSerializer(data=request.data, pending=False)
+    else:
+        serializer = serializers.QuoteSerializer(data=request.data)
 
     if serializer.is_valid():
         serializer.save()
