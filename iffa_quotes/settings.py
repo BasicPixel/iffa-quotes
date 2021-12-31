@@ -136,7 +136,7 @@ REST_FRAMEWORK = {
     ]
 }
 
-CORS_ORIGIN_WHITELIST = ['localhost:3000']
+CORS_ORIGIN_WHITELIST = ('http://localhost:3000',)
 
 # Configure Django App for Heroku.
 django_on_heroku.settings(locals())
